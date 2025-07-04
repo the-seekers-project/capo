@@ -1,0 +1,505 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000;
+    color: #fff;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+/* Header */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    border-bottom: 1px solid #333;
+    z-index: 100;
+    padding: 1rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.header-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Buttons */
+.icon-btn, .control-btn, .scroll-btn {
+    background: #333;
+    border: none;
+    color: #fff;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.icon-btn:hover, .control-btn:hover, .scroll-btn:hover {
+    background: #444;
+}
+
+.primary-btn {
+    background: #007AFF;
+    border: none;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: #0056B3;
+}
+
+/* Main content */
+#main-content {
+    margin-top: 80px;
+    padding: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Welcome screen */
+#welcome-screen {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.welcome-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+}
+
+/* Song view */
+#song-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.song-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.song-info p {
+    color: #ccc;
+    margin-bottom: 0.25rem;
+}
+
+.song-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Chord chart */
+.chord-chart {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    padding: 1rem 0;
+}
+
+.chord {
+    background: #333;
+    color: #FFD700;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+    margin: 0 0.1rem;
+    font-weight: bold;
+}
+
+.chord:hover {
+    background: #555;
+}
+
+/* Overlays */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.search-container, .saved-container {
+    background: #111;
+    border-radius: 12px;
+    padding: 2rem;
+    padding-right: 4rem;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+#search-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+    box-sizing: border-box;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    font-family: inherit;
+    vertical-align: baseline;
+    text-align: center;
+    transition: all 0.2s;
+    z-index: 5;
+}
+
+.close-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Search results */
+#search-results, #saved-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.song-item {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.song-item:hover {
+    background: #333;
+}
+
+.song-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.song-item p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.song-item .rating {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.song-item .version {
+    color: #88c999;
+    font-weight: 500;
+}
+
+.song-item .votes {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: #111;
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+}
+
+#chord-diagram-container h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #FFD700;
+}
+
+#chord-diagram {
+    background: #222;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+#chord-alternatives {
+    text-align: center;
+}
+
+#chord-alternatives p {
+    color: #ccc;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.alt-chord {
+    background: #333;
+    color: #FFD700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.2rem;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+.alt-chord:hover {
+    background: #444;
+}
+
+/* Auto-scroll controls */
+.scroll-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 50;
+}
+
+#scroll-speed {
+    font-size: 0.9rem;
+    color: #ccc;
+    min-width: 2rem;
+    text-align: center;
+}
+
+/* Floating controls */
+.floating-controls {
+    position: fixed;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.floating-controls-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.floating-controls-group:not(:last-child) {
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.floating-btn {
+    background: #222;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.floating-btn:hover {
+    background: #333;
+    border-color: #555;
+    transform: scale(1.05);
+}
+
+.floating-btn:active {
+    transform: scale(0.95);
+}
+
+.floating-btn.active {
+    background: #007AFF;
+    border-color: #007AFF;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #song-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .song-controls {
+        justify-content: center;
+    }
+    
+    .chord-chart {
+        font-size: 0.9rem;
+    }
+    
+    .overlay {
+        padding: 0.5rem;
+    }
+    
+    .search-container, .saved-container {
+        padding: 1.5rem;
+    }
+    
+    /* Floating controls mobile adjustments */
+    .floating-controls {
+        right: 0.5rem;
+        top: auto;
+        bottom: 6rem;
+        transform: none;
+    }
+    
+    .floating-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #header {
+        padding: 0.75rem;
+    }
+    
+    #logo {
+        font-size: 1.25rem;
+    }
+    
+    .chord-chart {
+        font-size: 0.8rem;
+    }
+    
+    .icon-btn, .control-btn {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        min-width: 40px;
+        min-height: 40px;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    body {
+        background: #000;
+        color: #fff;
+    }
+    
+    .chord {
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+    
+    .icon-btn, .control-btn {
+        border: 1px solid #fff;
+    }
+}
