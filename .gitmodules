@@ -1,0 +1,3 @@
+[submodule "scraper-service/ultimate-guitar-scraper"]
+	path = scraper-service/ultimate-guitar-scraper
+	url = https://github.com/Pilfer/ultimate-guitar-scraper.git

@@ -1,0 +1,17 @@
+{
+  "name": "capo",
+  "version": "1.0.0",
+  "description": "A free, musician-first chord app",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000 -c-1",
+    "build": "echo 'No build process needed for vanilla JS'",
+    "start": "npx http-server -p 3000"
+  },
+  "keywords": ["music", "chords", "guitar", "musicians"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
