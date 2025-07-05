@@ -82,7 +82,7 @@ class UltimateGuitarScraper {
       page: page
     };
 
-    const result = await this.makeRequest('/search/tabs', params);
+    const result = await this.makeRequest('/tab/search', params);
     
     // Transform results to match our expected format
     const tabs = result.tabs || [];
@@ -102,13 +102,19 @@ class UltimateGuitarScraper {
   }
 
   async getTabById(id) {
-    const result = await this.makeRequest(`/tabs/tab/${id}`);
+    const params = {
+      tab_id: id,
+      tab_access_type: 'private'
+    };
     
-    if (!result.tab) {
-      throw new Error('Tab not found');
+    const result = await this.makeRequest('/tab/info', params);
+    
+    // Check various possible response structures
+    const tab = result.tab || result;
+    
+    if (!tab || !tab.content) {
+      throw new Error('Tab not found or no content');
     }
-
-    const tab = result.tab;
     
     return {
       id: tab.id,
@@ -127,7 +133,7 @@ class UltimateGuitarScraper {
       page: page
     };
 
-    const result = await this.makeRequest('/explore/tabs', params);
+    const result = await this.makeRequest('/tab/explore', params);
     
     const tabs = result.tabs || [];
     return tabs
