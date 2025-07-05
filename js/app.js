@@ -14,6 +14,7 @@ class CapoApp {
         this.bindEvents();
         this.autoScroller.init();
         this.loadSettings();
+        this.initTheme();
         
         // Show welcome screen initially
         this.showWelcomeScreen();
@@ -21,6 +22,7 @@ class CapoApp {
     
     bindEvents() {
         // Header buttons
+        document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
         document.getElementById('search-btn').addEventListener('click', () => this.showSearch());
         document.getElementById('saved-btn').addEventListener('click', () => this.showSaved());
         document.getElementById('start-search').addEventListener('click', () => this.showSearch());
@@ -477,6 +479,30 @@ Was blind but now I see"
         
         if (settings.scrollSpeed) {
             this.autoScroller.setSpeed(settings.scrollSpeed);
+        }
+    }
+    
+    initTheme() {
+        // Check for saved theme or default to dark
+        const savedTheme = localStorage.getItem('capo-theme') || 'dark';
+        this.setTheme(savedTheme);
+    }
+    
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        this.setTheme(newTheme);
+    }
+    
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('capo-theme', theme);
+        
+        // Update theme toggle button
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+            themeToggle.title = `Switch to ${theme === 'light' ? 'dark' : 'light'} mode`;
         }
     }
 }
