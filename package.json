@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "npx http-server -p 3000 -c-1",
     "build": "echo 'No build process needed for vanilla JS'",
-    "start": "npx http-server -p 3000"
+    "start": "npx http-server -p 3000",
+    "worker:dev": "wrangler dev worker.js",
+    "worker:deploy": "wrangler deploy"
   },
   "keywords": ["music", "chords", "guitar", "musicians"],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "wrangler": "^4.0.0"
   }
 }

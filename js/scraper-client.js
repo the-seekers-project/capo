@@ -5,7 +5,13 @@ class ScraperClient {
     }
 
     detectBackendUrl() {
-        // Use the same host as the frontend (supports both localhost and network access)
+        // Check if we're running in production (deployed)
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            // Production: use Cloudflare Workers backend URL
+            return 'https://capo-scraper.the-seekers-project.workers.dev';
+        }
+        
+        // Local development: use localhost
         const host = window.location.hostname;
         const possiblePorts = [8080, 8081, 8082, 8083, 8084, 8085];
         

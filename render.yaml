@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: capo-scraper
+    env: go
+    plan: free
+    buildCommand: cd scraper-service && go build -o capo-scraper main.go
+    startCommand: cd scraper-service && ./capo-scraper
+    envVars:
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
