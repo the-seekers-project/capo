@@ -14,6 +14,20 @@ A free, fast, and frictionless chord app that eliminates the barriers between fi
 - **📱 Responsive Design**: Optimized for everything from iPhone mini to desktop monitors
 - **⚡ Zero Friction**: No accounts, no popups, no interruptions
 
+## ⚠️ Legal Disclaimer
+
+**IMPORTANT: This software is provided for educational and personal use only.**
+
+- This application interfaces with publicly available APIs and content
+- Users are responsible for ensuring their usage complies with applicable terms of service
+- The software includes rate limiting and caching to minimize server load
+- No content is stored or redistributed by this application
+- This tool is intended for personal practice and learning purposes
+- Commercial use is not permitted without proper licensing
+- Users should respect content creators' rights and platform terms
+
+**By using this software, you acknowledge that you will use it responsibly and in accordance with all applicable terms of service and copyright laws.**
+
 ## Quick Start
 
 ### Prerequisites
