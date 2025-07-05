@@ -37,7 +37,14 @@ class CapoApp {
         document.getElementById('close-search').addEventListener('click', () => this.hideSearch());
         document.getElementById('close-saved').addEventListener('click', () => this.hideSaved());
         
-        // Floating controls (primary controls)
+        // Header song controls (primary controls)
+        document.getElementById('header-transpose-up').addEventListener('click', () => this.transposeUp());
+        document.getElementById('header-transpose-down').addEventListener('click', () => this.transposeDown());
+        document.getElementById('header-auto-scroll').addEventListener('click', () => this.toggleAutoScroll());
+        document.getElementById('header-save').addEventListener('click', () => this.toggleSaveSong());
+        document.getElementById('header-scroll-to-top').addEventListener('click', () => this.scrollToTop());
+        
+        // Floating controls (backup - now hidden)
         document.getElementById('floating-transpose-up').addEventListener('click', () => this.transposeUp());
         document.getElementById('floating-transpose-down').addEventListener('click', () => this.transposeDown());
         document.getElementById('floating-auto-scroll').addEventListener('click', () => this.toggleAutoScroll());
@@ -58,6 +65,7 @@ class CapoApp {
         document.getElementById('welcome-screen').classList.remove('hidden');
         document.getElementById('song-view').classList.add('hidden');
         document.getElementById('floating-controls').classList.add('hidden');
+        document.getElementById('header-song-controls-container').classList.add('hidden');
     }
     
     showSearch() {
@@ -297,10 +305,11 @@ Was blind but now I see"
         // Update save button
         this.updateSaveButton();
         
-        // Show song view and floating controls
+        // Show song view and header controls
         document.getElementById('welcome-screen').classList.add('hidden');
         document.getElementById('song-view').classList.remove('hidden');
-        document.getElementById('floating-controls').classList.remove('hidden');
+        document.getElementById('floating-controls').classList.remove('hidden'); // Keep for compatibility
+        document.getElementById('header-song-controls-container').classList.remove('hidden');
         
         // Bind chord click events
         this.bindChordEvents();
@@ -390,11 +399,28 @@ Was blind but now I see"
         
         const isSaved = this.storage.isSongSaved(this.currentSong.title, this.currentSong.artist);
         
-        // Update floating save button
+        // Update floating save button (for compatibility)
         const floatingSaveBtn = document.getElementById('floating-save');
         if (floatingSaveBtn) {
-            floatingSaveBtn.textContent = isSaved ? '★' : '💾';
+            floatingSaveBtn.textContent = '💾';
             floatingSaveBtn.title = isSaved ? 'Remove from saved' : 'Save song';
+            if (isSaved) {
+                floatingSaveBtn.classList.add('active');
+            } else {
+                floatingSaveBtn.classList.remove('active');
+            }
+        }
+        
+        // Update header save button
+        const headerSaveBtn = document.getElementById('header-save');
+        if (headerSaveBtn) {
+            headerSaveBtn.textContent = '💾';
+            headerSaveBtn.title = isSaved ? 'Remove from saved' : 'Save song';
+            if (isSaved) {
+                headerSaveBtn.classList.add('active');
+            } else {
+                headerSaveBtn.classList.remove('active');
+            }
         }
     }
     

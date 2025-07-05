@@ -530,38 +530,116 @@ function parseChordChart(text) {
     const lines = text.split('\n');
     const parsedLines = [];
     
-    for (let line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        
         if (line.trim() === '') {
             parsedLines.push({ type: 'empty', content: '' });
             continue;
         }
         
-        const chordPattern = /\b[A-G](?:#|b)?(?:maj7?|min7?|m7?|7|sus[24]?|add[29]|dim7?|aug|6|9|11|13)*(?:\/[A-G](?:#|b)?)?\b/g;
+        const chordPattern = /\b[A-G](?:[#♯]|b|♭)?(?:maj7?|min7?|m7?|7|sus[24]?|add[29]|dim7?|aug|6|9|11|13)*(?:\/[A-G](?:[#♯]|b|♭)?)?\b/g;
         const matches = [...line.matchAll(chordPattern)];
         
-        if (matches.length > 0) {
+        // Check if this is a chord line (has chords but minimal lyrics)
+        const hasChords = matches.length > 0;
+        const chordContent = matches.map(m => m[0]).join('');
+        const nonChordContent = line.replace(chordPattern, '').trim();
+        const isChordLine = hasChords && (nonChordContent.length < chordContent.length || nonChordContent.length < 10);
+        
+        if (isChordLine && i + 1 < lines.length) {
+            // This is a chord line, check if next line is lyrics
+            const nextLine = lines[i + 1];
+            const nextHasChords = [...nextLine.matchAll(chordPattern)].length > 0;
+            
+            if (!nextHasChords && nextLine.trim() !== '') {
+                // Next line is lyrics, create combined chord-lyric line
+                const combinedLine = createChordLyricLine(line, nextLine);
+                parsedLines.push({ type: 'chord-lyric', content: combinedLine });
+                i++; // Skip the next line since we processed it
+                continue;
+            }
+        }
+        
+        if (hasChords) {
             let result = '';
             let lastIndex = 0;
             
             for (let match of matches) {
-                result += line.slice(lastIndex, match.index);
-                result += `<span class="chord" data-chord="${match[0]}">${match[0]}</span>`;
+                result += escapeHtml(line.slice(lastIndex, match.index));
+                result += `<span class="chord" data-chord="${escapeHtml(match[0])}">${escapeHtml(match[0])}</span>`;
                 lastIndex = match.index + match[0].length;
             }
-            result += line.slice(lastIndex);
+            result += escapeHtml(line.slice(lastIndex));
             
             parsedLines.push({ type: 'chords', content: result });
         } else {
-            parsedLines.push({ type: 'lyrics', content: line });
+            parsedLines.push({ type: 'lyrics', content: escapeHtml(line) });
         }
     }
     
     return parsedLines;
 }
 
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function createChordLyricLine(chordLine, lyricLine) {
+    const chordPattern = /\b[A-G](?:[#♯]|b|♭)?(?:maj7?|min7?|m7?|7|sus[24]?|add[29]|dim7?|aug|6|9|11|13)*(?:\/[A-G](?:[#♯]|b|♭)?)?\b/g;
+    const chordMatches = [...chordLine.matchAll(chordPattern)];
+    
+    if (chordMatches.length === 0) {
+        return escapeHtml(lyricLine);
+    }
+    
+    let result = '<div class="chord-lyric-line">';
+    let lyricIndex = 0;
+    
+    for (let i = 0; i < chordMatches.length; i++) {
+        const match = chordMatches[i];
+        const chordPosition = match.index;
+        const chord = match[0];
+        
+        // Determine how much lyric text corresponds to this chord
+        let lyricSegmentLength;
+        if (i === chordMatches.length - 1) {
+            // Last chord, take rest of lyrics
+            lyricSegmentLength = lyricLine.length - lyricIndex;
+        } else {
+            // Calculate spacing based on chord positions
+            const nextChordPosition = chordMatches[i + 1].index;
+            const chordSpacing = nextChordPosition - chordPosition;
+            lyricSegmentLength = Math.max(chordSpacing, chord.length + 1);
+        }
+        
+        const lyricSegment = lyricLine.slice(lyricIndex, lyricIndex + lyricSegmentLength);
+        
+        result += `<span class="chord-lyric-pair">`;
+        result += `<span class="chord" data-chord="${escapeHtml(chord)}">${escapeHtml(chord)}</span>`;
+        result += `<span class="lyric-part">${escapeHtml(lyricSegment)}</span>`;
+        result += `</span>`;
+        
+        lyricIndex += lyricSegmentLength;
+    }
+    
+    // Add any remaining lyrics
+    if (lyricIndex < lyricLine.length) {
+        result += `<span class="lyric-part">${escapeHtml(lyricLine.slice(lyricIndex))}</span>`;
+    }
+    
+    result += '</div>';
+    return result;
+}
+
 function renderChordChart(parsedChart) {
     return parsedChart.map(line => {
         if (line.type === 'empty') return '<br>';
+        if (line.type === 'chord-lyric') {
+            return `<div class="chart-line chord-lyric-combined">${line.content}</div>`;
+        }
         return `<div class="chart-line ${line.type}">${line.content}</div>`;
     }).join('');
 }

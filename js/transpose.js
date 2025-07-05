@@ -2,12 +2,18 @@ const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const FLAT_NOTES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
 function parseChord(chord) {
-    const match = chord.match(/^([A-G])(#|b)?(.*)$/);
+    // Handle both # and ♯ symbols, and both b and ♭ symbols
+    const match = chord.match(/^([A-G])([#♯]|b|♭)?(.*)$/);
     if (!match) return null;
+    
+    let accidental = match[2] || '';
+    // Normalize symbols
+    if (accidental === '♯') accidental = '#';
+    if (accidental === '♭') accidental = 'b';
     
     return {
         root: match[1],
-        accidental: match[2] || '',
+        accidental: accidental,
         suffix: match[3] || ''
     };
 }
@@ -45,10 +51,31 @@ function transposeChord(chord, semitones) {
 function transposeChordChart(chartHtml, semitones) {
     if (semitones === 0) return chartHtml;
     
-    return chartHtml.replace(/<span class="chord" data-chord="([^"]+)">([^<]+)<\/span>/g, 
+    // Handle HTML entities for # and other characters
+    const unescapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.innerHTML = str;
+        return div.textContent || div.innerText || '';
+    };
+    
+    const escapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    };
+    
+    return chartHtml.replace(/<span class="chord" data-chord="([^"]*?)">([^<]*?)<\/span>/g, 
         (match, dataChord, displayChord) => {
-            const newChord = transposeChord(dataChord, semitones);
-            return `<span class="chord" data-chord="${newChord}">${newChord}</span>`;
+            // Unescape HTML entities before transposing
+            const unescapedDataChord = unescapeHtml(dataChord);
+            const unescapedDisplayChord = unescapeHtml(displayChord);
+            
+            const newChord = transposeChord(unescapedDataChord, semitones);
+            
+            // Escape the result to prevent HTML issues
+            const escapedNewChord = escapeHtml(newChord);
+            
+            return `<span class="chord" data-chord="${escapedNewChord}">${escapedNewChord}</span>`;
         }
     );
 }

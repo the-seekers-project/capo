@@ -66,6 +66,7 @@ class AutoScroller {
     updateUI() {
         const autoScrollBtn = document.getElementById('auto-scroll-btn');
         const floatingAutoScrollBtn = document.getElementById('floating-auto-scroll');
+        const headerAutoScrollBtn = document.getElementById('header-auto-scroll');
         const scrollControls = document.getElementById('auto-scroll-controls');
         const pauseBtn = document.getElementById('scroll-pause');
         
@@ -83,6 +84,17 @@ class AutoScroller {
                 floatingAutoScrollBtn.classList.add('active');
             } else {
                 floatingAutoScrollBtn.classList.remove('active');
+            }
+        }
+        
+        // Update header button
+        if (headerAutoScrollBtn) {
+            headerAutoScrollBtn.textContent = this.isScrolling ? '⏸' : '▶';
+            headerAutoScrollBtn.title = this.isScrolling ? 'Pause auto-scroll' : 'Start auto-scroll';
+            if (this.isScrolling) {
+                headerAutoScrollBtn.classList.add('active');
+            } else {
+                headerAutoScrollBtn.classList.remove('active');
             }
         }
         
@@ -135,6 +147,7 @@ class AutoScroller {
     handlePageClick(event) {
         if (event.target.closest('.scroll-controls') || 
             event.target.closest('.floating-controls') ||
+            event.target.closest('.header-controls') ||
             event.target.closest('#auto-scroll-btn') ||
             event.target.classList.contains('chord')) {
             return;
