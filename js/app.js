@@ -324,16 +324,7 @@ Was blind but now I see"
         document.getElementById('chord-name').textContent = chordName;
         
         if (diagram) {
-            // Create both text and visual diagrams
-            const textDiagram = `<pre>${diagram.diagram}</pre>`;
-            const visualDiagram = createVisualChordDiagram(diagram);
-            
-            document.getElementById('chord-diagram').innerHTML = `
-                ${visualDiagram}
-                <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                    ${textDiagram}
-                </div>
-            `;
+            document.getElementById('chord-diagram').innerHTML = `<pre>${diagram.diagram}</pre>`;
         } else {
             document.getElementById('chord-diagram').innerHTML = '<p>Diagram not available</p>';
         }
