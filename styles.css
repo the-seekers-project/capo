@@ -196,9 +196,24 @@ body {
 .chord-chart {
     font-family: 'Courier New', monospace;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.8;
     white-space: pre-wrap;
     padding: 1rem 0;
+}
+
+.chart-line {
+    margin-bottom: 0.5rem;
+    min-height: 1.5em;
+}
+
+.chart-line.chords {
+    margin-bottom: 0.3rem;
+    line-height: 2;
+}
+
+.chart-line.lyrics {
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
 }
 
 .chord {
@@ -209,8 +224,9 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-block;
-    margin: 0 0.1rem;
+    margin: 0 0.2rem 0.2rem 0;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .chord:hover {
@@ -250,13 +266,13 @@ body {
 #search-input {
     width: 100%;
     padding: 1rem;
+    padding-right: 3rem; /* Space for close button */
     font-size: 1.1rem;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-light);
     border-radius: 8px;
     color: var(--text-primary);
     margin-bottom: 1rem;
-    margin-right: 2rem;
     box-sizing: border-box;
     transition: all 0.3s ease;
 }
@@ -602,10 +618,23 @@ body {
     
     .song-controls {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
     
     .chord-chart {
         font-size: 0.9rem;
+        line-height: 1.9;
+    }
+    
+    .chart-line.chords {
+        line-height: 2.1;
+        margin-bottom: 0.35rem;
+    }
+    
+    .chord {
+        margin: 0 0.18rem 0.18rem 0;
+        padding: 0.18rem 0.35rem;
     }
     
     .overlay {
@@ -614,6 +643,16 @@ body {
     
     .search-container, .saved-container {
         padding: 1.5rem;
+    }
+    
+    #search-input {
+        padding: 0.9rem;
+        padding-right: 2.8rem;
+    }
+    
+    .close-btn {
+        right: 0.8rem;
+        top: 0.8rem;
     }
     
     /* Floating controls mobile adjustments */
@@ -641,7 +680,26 @@ body {
     }
     
     .chord-chart {
+        font-size: 0.85rem;
+        line-height: 2;
+        padding: 0.5rem 0;
+    }
+    
+    .chart-line.chords {
+        margin-bottom: 0.4rem;
+        line-height: 2.2;
+    }
+    
+    .chart-line.lyrics {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+    
+    .chord {
+        padding: 0.15rem 0.3rem;
+        margin: 0 0.15rem 0.15rem 0;
         font-size: 0.8rem;
+        display: inline-block;
     }
     
     .icon-btn, .control-btn {
@@ -649,6 +707,20 @@ body {
         font-size: 0.9rem;
         min-width: 40px;
         min-height: 40px;
+    }
+    
+    .close-btn {
+        right: 0.5rem;
+        top: 0.5rem;
+        width: 28px;
+        height: 28px;
+        font-size: 1.2rem;
+    }
+    
+    #search-input {
+        padding: 0.8rem;
+        padding-right: 2.5rem;
+        font-size: 1rem;
     }
 }
 
