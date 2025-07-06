@@ -1,3 +1,6 @@
+/* Import Inter font with multiple weights and JetBrains Mono for code */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -44,12 +47,51 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
     background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.4;
+    line-height: 1.5;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography utilities with Inter font weights */
+h1, h2, h3 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+
+/* Code and monospace elements */
+pre, code, .monospace {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-weight: 400;
 }
 
 /* Header */
@@ -209,13 +251,17 @@ body {
 
 .welcome-content h2 {
     font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 1rem;
+    letter-spacing: -0.025em;
 }
 
 .welcome-content p {
     font-size: 1.1rem;
+    font-weight: 400;
     color: var(--text-secondary);
     margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
 /* Song view */
@@ -229,12 +275,16 @@ body {
 
 .song-info h2 {
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
 }
 
 .song-info p {
+    font-weight: 400;
     color: var(--text-secondary);
     margin-bottom: 0.25rem;
+    line-height: 1.5;
 }
 
 .song-controls {
@@ -245,8 +295,9 @@ body {
 
 /* Chord chart */
 .chord-chart {
-    font-family: 'Courier New', monospace;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 1rem;
+    font-weight: 400;
     line-height: 1.8;
     white-space: pre-wrap;
     padding: 1rem 0; /* Normal padding now that controls are in header */
@@ -264,7 +315,9 @@ body {
 
 .chart-line.lyrics {
     margin-bottom: 0.8rem;
-    line-height: 1.4;
+    line-height: 1.6;
+    font-weight: 400;
+    color: var(--text-primary);
 }
 
 .chart-line.chord-lyric-combined {
@@ -298,9 +351,11 @@ body {
 
 .lyric-part {
     white-space: pre;
-    line-height: 1.4;
+    line-height: 1.5;
     min-height: 1.4em;
     display: inline-block;
+    font-weight: 400;
+    color: var(--text-primary);
 }
 
 .chord {
@@ -312,8 +367,9 @@ body {
     transition: all 0.3s ease;
     display: inline-block;
     margin: 0 0.2rem 0.2rem 0;
-    font-weight: bold;
+    font-weight: 600;
     white-space: nowrap;
+    letter-spacing: -0.01em;
 }
 
 .chord:hover {
@@ -354,7 +410,9 @@ body {
     width: 100%;
     padding: 1rem;
     padding-right: 3rem; /* Space for close button */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 1.1rem;
+    font-weight: 400;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-light);
     border-radius: 8px;
@@ -486,9 +544,10 @@ body {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
-    font-size: 1rem;
-    line-height: 1.4;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.3;
     border: 2px solid var(--border-color);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     white-space: pre-line;
