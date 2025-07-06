@@ -3044,8 +3044,32 @@ function renderChordChart(parsedChart) {
 }
 
 function getChordDiagram(chordName) {
-    const baseChord = chordName.replace(/[^A-G#b]/g, '');
-    return CHORD_DIAGRAMS[baseChord] || CHORD_DIAGRAMS[chordName];
+    // First try the exact chord name
+    if (CHORD_DIAGRAMS[chordName]) {
+        return CHORD_DIAGRAMS[chordName];
+    }
+    
+    // If not found, try some common variations
+    // Clean up common variations but preserve important modifiers
+    const cleanName = chordName.trim();
+    
+    // Try some common alternative notations
+    const alternatives = [
+        cleanName,
+        cleanName.replace('min', 'm'),
+        cleanName.replace(/°/g, 'dim'),
+        cleanName.replace(/\+/g, 'aug'),
+        cleanName.replace(/♯/g, '#'),
+        cleanName.replace(/♭/g, 'b')
+    ];
+    
+    for (const alt of alternatives) {
+        if (CHORD_DIAGRAMS[alt]) {
+            return CHORD_DIAGRAMS[alt];
+        }
+    }
+    
+    return null;
 }
 
 function createVisualChordDiagram(chordData) {
