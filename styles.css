@@ -68,9 +68,11 @@ body {
 .header-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     max-width: 800px;
     margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 #logo {
@@ -83,6 +85,8 @@ body {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 #header-song-controls-container {
@@ -774,19 +778,41 @@ body {
     }
 }
 
+/* Medium-small phones - reduce button sizes before wrapping */
+@media (max-width: 480px) and (min-width: 431px) {
+    .header-song-controls .floating-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+        padding: 0.4rem;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    
+    .icon-btn, .control-btn, .theme-toggle {
+        width: 38px;
+        height: 38px;
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        min-width: 38px;
+        min-height: 38px;
+    }
+    
+    #header-song-controls-container {
+        gap: 0.6rem;
+    }
+    
+    .header-controls {
+        gap: 0.4rem;
+    }
+}
+
 /* Small phones (iPhone 13, 12 Mini, etc.) */
 @media (max-width: 430px) {
     .chord-chart {
         font-size: 0.82rem;
         line-height: 1.85;
         padding: 0.8rem 0; /* Normal padding on small phones */
-    }
-    
-    .header-song-controls .floating-btn {
-        width: 26px;
-        height: 26px;
-        font-size: 0.75rem;
-        padding: 0.25rem;
     }
     
     .chart-line.chord-lyric-combined {
@@ -803,6 +829,38 @@ body {
         padding: 0.14rem 0.28rem;
         margin: 0 0.12rem 0.12rem 0;
         font-size: 0.78rem;
+    }
+}
+
+/* Very small screens - force wrapping */
+@media (max-width: 430px) {
+    .header-content {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    #logo {
+        order: 1;
+        margin-bottom: 0.25rem;
+    }
+    
+    .header-controls {
+        order: 2;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    #header-song-controls-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .header-song-controls {
+        gap: 0.25rem;
     }
 }
 
@@ -832,10 +890,19 @@ body {
     }
     
     .header-song-controls .floating-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+        padding: 0.35rem;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    
+    .icon-btn, .control-btn, .theme-toggle {
         width: 36px;
         height: 36px;
-        font-size: 0.8rem;
         padding: 0.5rem;
+        font-size: 0.85rem;
         min-width: 36px;
         min-height: 36px;
     }
