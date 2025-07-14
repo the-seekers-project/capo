@@ -11,10 +11,16 @@ class AutoScroller {
         if (this.isScrolling) return;
         
         this.isScrolling = true;
-        const scrollAmount = this.baseScrollAmount * this.speedMultiplier;
+        this.accumulatedScroll = 0;
         
         this.intervalId = setInterval(() => {
-            window.scrollBy(0, scrollAmount);
+            this.accumulatedScroll += this.baseScrollAmount * this.speedMultiplier;
+            
+            if (this.accumulatedScroll >= 1) {
+                const scrollAmount = Math.floor(this.accumulatedScroll);
+                window.scrollBy(0, scrollAmount);
+                this.accumulatedScroll -= scrollAmount;
+            }
             
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 this.stop();
