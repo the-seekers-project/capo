@@ -25,6 +25,7 @@
     --accent-hover: #0056B3;
     --error-color: #e74c3c;
     --success-color: #28a745;
+    --lyric-font-size: 1.25rem;
 }
 
 [data-theme="light"] {
@@ -318,7 +319,7 @@ pre, code, .monospace {
     line-height: 1.6;
     font-weight: 400;
     color: var(--text-primary);
-    font-size: 1.25rem;
+    font-size: var(--lyric-font-size);
 }
 
 .chart-line.chord-lyric-combined {
@@ -357,7 +358,7 @@ pre, code, .monospace {
     display: inline-block;
     font-weight: 400;
     color: var(--text-primary);
-    font-size: 1.25rem;
+    font-size: var(--lyric-font-size);
 }
 
 .chord {

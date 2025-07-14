@@ -40,6 +40,8 @@ class CapoApp {
         // Header song controls (primary controls)
         document.getElementById('header-transpose-up').addEventListener('click', () => this.transposeUp());
         document.getElementById('header-transpose-down').addEventListener('click', () => this.transposeDown());
+        document.getElementById('header-font-size-up').addEventListener('click', () => this.increaseFontSize());
+        document.getElementById('header-font-size-down').addEventListener('click', () => this.decreaseFontSize());
         document.getElementById('header-auto-scroll').addEventListener('click', () => this.toggleAutoScroll());
         document.getElementById('header-save').addEventListener('click', () => this.toggleSaveSong());
         document.getElementById('header-scroll-to-top').addEventListener('click', () => this.scrollToTop());
@@ -437,6 +439,26 @@ Was blind but now I see"
         });
     }
     
+    increaseFontSize() {
+        const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lyric-font-size') || '1.25') * 16;
+        const newSize = Math.min(currentSize + 2, 32); // Max 32px
+        document.documentElement.style.setProperty('--lyric-font-size', `${newSize / 16}rem`);
+        this.saveFontSize(newSize);
+    }
+    
+    decreaseFontSize() {
+        const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lyric-font-size') || '1.25') * 16;
+        const newSize = Math.max(currentSize - 2, 12); // Min 12px
+        document.documentElement.style.setProperty('--lyric-font-size', `${newSize / 16}rem`);
+        this.saveFontSize(newSize);
+    }
+    
+    saveFontSize(size) {
+        const settings = this.storage.getSettings();
+        settings.lyricFontSize = size;
+        this.storage.saveSettings(settings);
+    }
+    
     renderSavedSongs() {
         const savedList = document.getElementById('saved-list');
         const saved = this.storage.getSavedSongs();
@@ -501,6 +523,10 @@ Was blind but now I see"
         
         if (settings.fontSize) {
             document.documentElement.style.setProperty('--base-font-size', settings.fontSize + 'px');
+        }
+        
+        if (settings.lyricFontSize) {
+            document.documentElement.style.setProperty('--lyric-font-size', `${settings.lyricFontSize / 16}rem`);
         }
         
         if (settings.scrollSpeed) {
