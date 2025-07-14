@@ -167,6 +167,7 @@ pre, code, .monospace {
     justify-content: center;
     min-width: 44px;
     min-height: 44px;
+    position: relative;
 }
 
 .header-song-controls .floating-btn:hover {
@@ -194,6 +195,7 @@ pre, code, .monospace {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .theme-toggle:hover {
@@ -213,10 +215,70 @@ pre, code, .monospace {
     transition: all 0.3s ease;
     min-width: 44px;
     min-height: 44px;
+    position: relative;
 }
 
 .icon-btn:hover, .control-btn:hover, .scroll-btn:hover {
     background: var(--border-light);
+}
+
+/* Ensure tooltips appear above everything */
+[title] {
+    position: relative;
+}
+
+/* Fix z-index issues that might prevent tooltips */
+button[title]:hover {
+    z-index: 1001;
+}
+
+/* Custom CSS Tooltips */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    margin-top: 8px;
+    border: 1px solid var(--border-color);
+    font-weight: 400;
+    letter-spacing: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-tooltip]:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: var(--bg-secondary);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    margin-top: 3px;
+}
+
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    opacity: 1;
+    visibility: visible;
 }
 
 .primary-btn {
@@ -724,6 +786,10 @@ pre, code, .monospace {
     align-items: center;
     justify-content: center;
     line-height: 1;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .floating-btn:hover {

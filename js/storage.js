@@ -59,6 +59,7 @@ class StorageManager {
             const settings = localStorage.getItem(this.settingsKey);
             return settings ? JSON.parse(settings) : {
                 fontSize: 16,
+                lyricFontSize: 20,
                 scrollSpeed: 1,
                 autoScroll: false
             };
@@ -66,6 +67,7 @@ class StorageManager {
             console.error('Error loading settings:', error);
             return {
                 fontSize: 16,
+                lyricFontSize: 20,
                 scrollSpeed: 1,
                 autoScroll: false
             };

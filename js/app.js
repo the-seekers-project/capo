@@ -40,8 +40,15 @@ class CapoApp {
         // Header song controls (primary controls)
         document.getElementById('header-transpose-up').addEventListener('click', () => this.transposeUp());
         document.getElementById('header-transpose-down').addEventListener('click', () => this.transposeDown());
-        document.getElementById('header-font-size-up').addEventListener('click', () => this.increaseFontSize());
-        document.getElementById('header-font-size-down').addEventListener('click', () => this.decreaseFontSize());
+        
+        // Font size controls with touch support
+        const fontUpBtn = document.getElementById('header-font-size-up');
+        const fontDownBtn = document.getElementById('header-font-size-down');
+        fontUpBtn.addEventListener('click', () => this.increaseFontSize());
+        fontUpBtn.addEventListener('touchend', (e) => { e.preventDefault(); this.increaseFontSize(); });
+        fontDownBtn.addEventListener('click', () => this.decreaseFontSize());
+        fontDownBtn.addEventListener('touchend', (e) => { e.preventDefault(); this.decreaseFontSize(); });
+        
         document.getElementById('header-auto-scroll').addEventListener('click', () => this.toggleAutoScroll());
         document.getElementById('header-save').addEventListener('click', () => this.toggleSaveSong());
         document.getElementById('header-scroll-to-top').addEventListener('click', () => this.scrollToTop());
@@ -440,14 +447,16 @@ Was blind but now I see"
     }
     
     increaseFontSize() {
-        const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lyric-font-size') || '1.25') * 16;
+        const settings = this.storage.getSettings();
+        const currentSize = settings.lyricFontSize || 20; // Default 20px (1.25rem)
         const newSize = Math.min(currentSize + 2, 32); // Max 32px
         document.documentElement.style.setProperty('--lyric-font-size', `${newSize / 16}rem`);
         this.saveFontSize(newSize);
     }
     
     decreaseFontSize() {
-        const currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lyric-font-size') || '1.25') * 16;
+        const settings = this.storage.getSettings();
+        const currentSize = settings.lyricFontSize || 20; // Default 20px (1.25rem)
         const newSize = Math.max(currentSize - 2, 12); // Min 12px
         document.documentElement.style.setProperty('--lyric-font-size', `${newSize / 16}rem`);
         this.saveFontSize(newSize);
