@@ -155,8 +155,9 @@ class ScraperClient {
         } catch (error) {
             clearTimeout(timeoutId);
             
-            // If first attempt fails, try other ports
-            if (endpoint === '/health' || !this.hasTriedOtherPorts) {
+            // If first attempt fails, try other ports (only for localhost)
+            if ((endpoint === '/health' || !this.hasTriedOtherPorts) && 
+                (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
                 this.hasTriedOtherPorts = true;
                 const alternativeUrl = await this.findWorkingBackend();
                 if (alternativeUrl) {
@@ -170,28 +171,31 @@ class ScraperClient {
     }
 
     async findWorkingBackend() {
-        const host = window.location.hostname;
-        const possiblePorts = [8080, 8081, 8082, 8083, 8084, 8085];
-        
-        for (const port of possiblePorts) {
-            try {
-                const testUrl = `http://${host}:${port}`;
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 2000); // Shorter timeout for port testing
-                
-                const response = await fetch(`${testUrl}/health`, {
-                    method: 'GET',
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (response.ok) {
-                    console.log(`Found working backend on port ${port}`);
-                    return testUrl;
+        // Only try alternative ports for localhost development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const host = window.location.hostname;
+            const possiblePorts = [8080, 8081, 8082, 8083, 8084, 8085];
+            
+            for (const port of possiblePorts) {
+                try {
+                    const testUrl = `http://${host}:${port}`;
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2000); // Shorter timeout for port testing
+                    
+                    const response = await fetch(`${testUrl}/health`, {
+                        method: 'GET',
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (response.ok) {
+                        console.log(`Found working backend on port ${port}`);
+                        return testUrl;
+                    }
+                } catch (error) {
+                    // Continue to next port
                 }
-            } catch (error) {
-                // Continue to next port
             }
         }
         
@@ -199,10 +203,17 @@ class ScraperClient {
     }
 
     getFallbackResults(query) {
-        return [{
-            title: `Service Unavailable for "${query}"`,
-            artist: 'Scraper Service',
-            content: `The scraper service is not available. 
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        
+        const productionMessage = `The search service is temporarily unavailable. This could be due to:
+
+• High traffic or server maintenance
+• Network connectivity issues
+• Third-party API limitations
+
+Please try again in a few moments, or use the Manual Input option to paste chord charts directly.`;
+
+        const localMessage = `The scraper service is not available. 
 
 To start the service:
 1. Open a terminal in the capo directory
@@ -212,17 +223,32 @@ Or manually:
 1. Navigate to the scraper-service directory
 2. Run: ./capo-scraper
 
-Or use the Manual Input option to paste chord charts directly.`,
+Or use the Manual Input option to paste chord charts directly.`;
+
+        return [{
+            title: `Service Unavailable for "${query}"`,
+            artist: 'Scraper Service',
+            content: isProduction ? productionMessage : localMessage,
             source: 'Service Error',
             isError: true
         }];
     }
 
     getFallbackChordChart(url) {
-        return {
-            title: 'Service Unavailable',
-            artist: 'Unknown',
-            content: `Unable to fetch chord chart from the scraper service.
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        
+        const productionMessage = `Unable to load this chord chart. This could be due to:
+
+• The song may be temporarily unavailable
+• Network or server issues
+• Third-party API limitations
+
+Please try:
+• Refreshing the page and trying again
+• Searching for a different version of the song
+• Using the Manual Input option to paste the chord chart directly`;
+
+        const localMessage = `Unable to fetch chord chart from the scraper service.
 
 To start the service:
 1. Open a terminal in the capo directory
@@ -234,7 +260,12 @@ Or manually:
 
 The service should be running on http://localhost:8081
 
-You can also use the Manual Input option to paste chord charts directly.`,
+You can also use the Manual Input option to paste chord charts directly.`;
+
+        return {
+            title: 'Service Unavailable',
+            artist: 'Unknown',
+            content: isProduction ? productionMessage : localMessage,
             source: 'Service Error',
             isError: true
         };

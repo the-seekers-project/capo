@@ -65,7 +65,8 @@ class UltimateGuitarScraper {
 
     const response = await fetch(url.toString(), {
       method: 'GET',
-      headers: headers
+      headers: headers,
+      signal: AbortSignal.timeout(15000) // 15 second timeout
     });
 
     if (!response.ok) {

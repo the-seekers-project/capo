@@ -86,6 +86,16 @@ class StorageManager {
         }
     }
     
+    saveSettings(settings) {
+        try {
+            localStorage.setItem(this.settingsKey, JSON.stringify(settings));
+            return true;
+        } catch (error) {
+            console.error('Error saving settings:', error);
+            return false;
+        }
+    }
+    
     exportData() {
         return {
             songs: this.getSavedSongs(),
