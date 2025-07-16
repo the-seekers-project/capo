@@ -1129,6 +1129,14 @@ button[title]:hover {
     }
 }
 
+/* Hide font size buttons on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    #header-font-size-down,
+    #header-font-size-up {
+        display: none !important;
+    }
+}
+
 /* High contrast mode */
 @media (prefers-contrast: high) {
     body {
