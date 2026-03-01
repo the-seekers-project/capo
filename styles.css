@@ -19,13 +19,27 @@
     --text-tertiary: #999;
     --border-color: #333;
     --border-light: #444;
-    --chord-bg: #333;
-    --chord-color: #FFD700;
+    --chord-bg: #222;
+    --chord-color: #FF6600;
     --accent-color: #007AFF;
     --accent-hover: #0056B3;
     --error-color: #e74c3c;
     --success-color: #28a745;
     --lyric-font-size: 1.25rem;
+
+    /* Clean, minimal color system - Teenage Engineering inspired */
+    --accent-primary: #FF6600;
+    --surface-elevated: rgba(255, 255, 255, 0.05);
+
+    /* Semantic colors */
+    --info-color: #3b82f6;
+    --warning-color: #f59e0b;
+
+    /* Minimal shadow system */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 [data-theme="light"] {
@@ -39,12 +53,26 @@
     --text-tertiary: #6c757d;
     --border-color: #dee2e6;
     --border-light: #e9ecef;
-    --chord-bg: #007AFF;
+    --chord-bg: #FF6600;
     --chord-color: #fff;
     --accent-color: #007AFF;
     --accent-hover: #0056B3;
     --error-color: #dc3545;
     --success-color: #198754;
+
+    /* Clean, minimal color system - Teenage Engineering inspired */
+    --accent-primary: #FF6600;
+    --surface-elevated: rgba(0, 0, 0, 0.03);
+
+    /* Semantic colors */
+    --info-color: #3b82f6;
+    --warning-color: #f59e0b;
+
+    /* Minimal shadow system */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
 body {
@@ -58,6 +86,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Typography utilities with Inter font weights */
@@ -101,11 +130,18 @@ pre, code, .monospace {
     top: 0;
     left: 0;
     right: 0;
-    background: var(--bg-primary);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
     border-bottom: 1px solid var(--border-color);
     z-index: 100;
     padding: 1rem;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] #header {
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .header-content {
@@ -120,8 +156,18 @@ pre, code, .monospace {
 
 #logo {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
     color: var(--text-primary);
+    letter-spacing: -0.03em;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+#logo:hover {
+    opacity: 0.7;
 }
 
 .header-controls {
@@ -157,27 +203,46 @@ pre, code, .monospace {
     padding: 0.75rem;
     font-size: 1rem;
     background: var(--bg-quaternary);
-    border: none;
+    border: 1px solid var(--border-color);
     color: var(--text-primary);
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 44px;
     min-height: 44px;
     position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Make auto-scroll, save, and scroll-to-top buttons slightly bigger */
+#header-auto-scroll,
+#header-save,
+#header-scroll-to-top {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
 }
 
 .header-song-controls .floating-btn:hover {
     background: var(--border-light);
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.header-song-controls .floating-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
 .header-song-controls .floating-btn.active {
-    background: var(--accent-color);
-    color: #fff;
+    background: var(--accent-primary);
+    border-color: transparent;
+    color: #000;
+    box-shadow: var(--shadow-md);
 }
 
 /* Theme toggle */
@@ -189,37 +254,60 @@ pre, code, .monospace {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 44px;
     height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    box-shadow: var(--shadow-sm);
 }
 
 .theme-toggle:hover {
     background: var(--border-light);
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Buttons */
 .icon-btn, .control-btn, .scroll-btn {
     background: var(--bg-quaternary);
-    border: none;
+    border: 1px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.75rem;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 44px;
     min-height: 44px;
     position: relative;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button svg {
+    display: block;
+    flex-shrink: 0;
 }
 
 .icon-btn:hover, .control-btn:hover, .scroll-btn:hover {
     background: var(--border-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.icon-btn:active, .control-btn:active, .scroll-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Ensure tooltips appear above everything */
@@ -282,19 +370,28 @@ button[title]:hover {
 }
 
 .primary-btn {
-    background: var(--accent-color);
+    background: var(--accent-primary);
     border: none;
-    color: #fff;
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    color: #000;
+    padding: 0.875rem 2.5rem;
+    border-radius: 500px;
     cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    font-size: 0.875rem;
 }
 
 .primary-btn:hover {
-    background: var(--accent-hover);
+    transform: scale(1.04);
+    background: #FF7722;
+}
+
+.primary-btn:active {
+    transform: scale(0.96);
 }
 
 /* Main content */
@@ -306,25 +403,123 @@ button[title]:hover {
     margin-right: auto;
 }
 
-/* Welcome screen */
+/* Welcome screen - Clean Spotify/Linear style */
 #welcome-screen {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 6rem 2rem 4rem;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-primary);
+    position: relative;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
 }
 
 .welcome-content h2 {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 900;
     margin-bottom: 1rem;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    line-height: 1;
 }
 
 .welcome-content p {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 400;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Feature cards */
+.feature-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 4rem;
+    max-width: 600px;
+}
+
+.feature-card {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-light);
+}
+
+.feature-card .icon {
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+}
+
+.feature-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .welcome-content h2 {
+        font-size: 2.25rem;
+    }
+
+    .welcome-content p {
+        font-size: 1.1rem;
+    }
+
+    .feature-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-top: 3rem;
+    }
+
+    .feature-card {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .feature-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .feature-card p {
+        font-size: 0.75rem;
+    }
+
+    .feature-card .icon {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 /* Song view */
@@ -374,6 +569,7 @@ button[title]:hover {
 .chart-line.chords {
     margin-bottom: 0.3rem;
     line-height: 2;
+    font-size: var(--lyric-font-size);
 }
 
 .chart-line.lyrics {
@@ -387,6 +583,11 @@ button[title]:hover {
 .chart-line.chord-lyric-combined {
     margin-bottom: 1rem;
     line-height: 1.6;
+    font-size: var(--lyric-font-size);
+}
+
+.lyric-segment {
+    font-size: inherit;
 }
 
 .chord-lyric-line {
@@ -426,20 +627,37 @@ button[title]:hover {
 .chord {
     background: var(--chord-bg);
     color: var(--chord-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: inline-block;
     margin: 0 0.2rem 0.2rem 0;
     font-weight: 600;
     white-space: nowrap;
     letter-spacing: -0.01em;
+    box-shadow: none;
+    border: 1px solid transparent;
+    min-width: 2.5rem;
+    text-align: center;
 }
 
 .chord:hover {
-    background: var(--border-light);
-    transform: scale(1.05);
+    background: var(--chord-bg);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--chord-color);
+}
+
+[data-theme="light"] .chord {
+    background: var(--chord-bg);
+    box-shadow: none;
+}
+
+[data-theme="light"] .chord:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--chord-bg);
 }
 
 /* Overlays */
@@ -459,7 +677,7 @@ button[title]:hover {
 
 .search-container, .saved-container {
     background: var(--bg-secondary);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 2rem;
     padding-right: 4rem;
     width: 100%;
@@ -468,7 +686,8 @@ button[title]:hover {
     overflow-y: auto;
     position: relative;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-xl);
 }
 
 #search-input {
@@ -479,26 +698,32 @@ button[title]:hover {
     font-size: 1.1rem;
     font-weight: 400;
     background: var(--bg-tertiary);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
     color: var(--text-primary);
     margin-bottom: 1rem;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #search-input:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+    background: var(--bg-quaternary);
+    transform: translateY(-1px);
+}
+
+#search-input:hover {
+    border-color: var(--border-light);
 }
 
 .close-btn {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: none;
-    border: none;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
     color: var(--text-secondary);
     font-size: 1.5rem;
     cursor: pointer;
@@ -512,13 +737,20 @@ button[title]:hover {
     font-family: inherit;
     vertical-align: baseline;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 5;
+    box-shadow: var(--shadow-sm);
 }
 
 .close-btn:hover {
     background: var(--bg-quaternary);
     color: var(--text-primary);
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.close-btn:active {
+    transform: rotate(90deg) scale(0.95);
 }
 
 /* Search results */
@@ -531,16 +763,24 @@ button[title]:hover {
 .song-item {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
 }
 
 .song-item:hover {
     background: var(--bg-quaternary);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-light);
+}
+
+.song-item:active {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .song-item h3 {
@@ -555,7 +795,7 @@ button[title]:hover {
 }
 
 .song-item .rating {
-    color: #ffd700;
+    color: var(--accent-primary);
     font-weight: bold;
 }
 
@@ -586,13 +826,14 @@ button[title]:hover {
 
 .modal-content {
     background: var(--bg-secondary);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 2rem;
     position: relative;
     max-width: 400px;
     width: 100%;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-xl);
 }
 
 #chord-diagram-container h3 {
@@ -605,11 +846,7 @@ button[title]:hover {
 
 /* Fix chord label color in light theme */
 [data-theme="light"] #chord-diagram-container h3 {
-    color: #007AFF;
-    background: linear-gradient(135deg, #007AFF, #0051D5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent-primary);
 }
 
 #chord-diagram {
@@ -623,7 +860,7 @@ button[title]:hover {
     font-weight: 400;
     line-height: 1.3;
     border: 2px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     white-space: pre-line;
 }
 
@@ -711,21 +948,32 @@ button[title]:hover {
     background: var(--chord-bg);
     color: var(--chord-color);
     padding: 0.5rem 1rem;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     margin: 0.3rem;
     display: inline-block;
     font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: all 0.2s ease;
     border: 1px solid var(--border-color);
+    box-shadow: none;
 }
 
 .alt-chord:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--accent-primary);
+    color: #000;
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .alt-chord {
+    background: var(--chord-bg);
+}
+
+[data-theme="light"] .alt-chord:hover {
+    background: var(--accent-primary);
+    color: #000;
 }
 
 /* Auto-scroll controls */
@@ -735,13 +983,20 @@ button[title]:hover {
     right: 2rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     z-index: 50;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.scroll-controls:hover {
+    box-shadow: var(--shadow-xl);
 }
 
 #scroll-speed {
@@ -773,13 +1028,13 @@ button[title]:hover {
 
 .floating-btn {
     background: var(--bg-quaternary);
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.5rem;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 36px;
     height: 36px;
     display: flex;
@@ -790,27 +1045,232 @@ button[title]:hover {
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    box-shadow: var(--shadow-sm);
 }
 
 .floating-btn:hover {
-    background: var(--bg-quaternary);
+    background: var(--border-light);
     border-color: var(--border-color);
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
 .floating-btn:active {
-    transform: scale(0.95);
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
 .floating-btn.active {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    color: #fff;
+    background: var(--accent-primary);
+    border-color: transparent;
+    color: #000;
+    box-shadow: var(--shadow-md);
 }
+
+/* Elevation system */
+.elevation-0 {
+    box-shadow: none;
+}
+
+.elevation-1 {
+    box-shadow: var(--shadow-sm);
+}
+
+.elevation-2 {
+    box-shadow: var(--shadow-md);
+}
+
+.elevation-3 {
+    box-shadow: var(--shadow-lg);
+}
+
+.elevation-4 {
+    box-shadow: var(--shadow-xl);
+}
+
+/* Typography scale utilities */
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+}
+
+.text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+/* Removed gradient-text utility - not used in clean design */
 
 /* Utility classes */
 .hidden {
     display: none !important;
+}
+
+/* CSS Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Apply animations to elements */
+.welcome-content h2 {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.welcome-content p {
+    animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+.welcome-content .primary-btn {
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.feature-card {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.feature-card:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.feature-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.feature-card:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.song-item {
+    animation: fadeInUp 0.4s ease-out backwards;
+}
+
+.overlay {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.search-container, .saved-container, .modal-content {
+    animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ripple effect for buttons */
+.primary-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.primary-btn:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    transition: width 0s, height 0s, opacity 0.6s;
 }
 
 /* Responsive design */

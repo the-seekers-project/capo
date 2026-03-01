@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-v1';
+const CACHE_NAME = 'capo-v18';
 const STATIC_ASSETS = [
     '/',
     '/index.html',

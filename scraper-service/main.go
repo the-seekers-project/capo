@@ -335,11 +335,15 @@ func cleanChordContent(content string) string {
 	content = regexp.MustCompile(`\r`).ReplaceAllString(content, "\n")
 	content = regexp.MustCompile(`\n{3,}`).ReplaceAllString(content, "\n\n")
 	
-	// Trim whitespace from lines
+	// Trim whitespace from lines and normalize spaces within lines
 	lines := strings.Split(content, "\n")
 	var cleanedLines []string
+	spaceRegex := regexp.MustCompile(`\s+`)
 	for _, line := range lines {
-		cleanedLines = append(cleanedLines, strings.TrimSpace(line))
+		trimmed := strings.TrimSpace(line)
+		// Normalize multiple spaces to single space
+		normalized := spaceRegex.ReplaceAllString(trimmed, " ")
+		cleanedLines = append(cleanedLines, normalized)
 	}
 	
 	return strings.TrimSpace(strings.Join(cleanedLines, "\n"))

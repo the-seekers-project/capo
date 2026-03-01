@@ -21,6 +21,9 @@ class CapoApp {
     }
     
     bindEvents() {
+        // Logo click to go home
+        document.getElementById('logo').addEventListener('click', () => this.showWelcomeScreen());
+
         // Header buttons
         document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
         document.getElementById('search-btn').addEventListener('click', () => this.showSearch());
@@ -129,7 +132,7 @@ class CapoApp {
                 return;
             }
             
-            this.renderSearchResults(results);
+            this.renderSearchResults(results, query);
             
         } catch (error) {
             console.error('Search failed:', error);
@@ -144,19 +147,49 @@ class CapoApp {
         }
     }
     
-    renderSearchResults(results) {
+    renderSearchResults(results, query = '') {
         const resultsContainer = document.getElementById('search-results');
-        
+
         if (results.length === 0) {
             resultsContainer.innerHTML = '<div class="no-results">No songs found</div>';
             return;
         }
-        
-        // Sort results by rating (highest first), then by votes
+
+        // Smart sorting: prioritize title match relevance, then rating/votes
+        const normalizedQuery = query.toLowerCase().trim();
+
         results.sort((a, b) => {
+            // Calculate relevance scores (0-100)
+            const aTitle = a.title.toLowerCase();
+            const bTitle = b.title.toLowerCase();
+
+            // Exact match gets highest priority (100 points)
+            const aExactMatch = aTitle === normalizedQuery ? 100 : 0;
+            const bExactMatch = bTitle === normalizedQuery ? 100 : 0;
+
+            // Starts with query gets high priority (50 points)
+            const aStartsWith = aTitle.startsWith(normalizedQuery) ? 50 : 0;
+            const bStartsWith = bTitle.startsWith(normalizedQuery) ? 50 : 0;
+
+            // Contains query gets medium priority (25 points)
+            const aContains = aTitle.includes(normalizedQuery) ? 25 : 0;
+            const bContains = bTitle.includes(normalizedQuery) ? 25 : 0;
+
+            // Total relevance score
+            const aRelevance = aExactMatch || aStartsWith || aContains;
+            const bRelevance = bExactMatch || bStartsWith || bContains;
+
+            // If relevance differs, sort by relevance
+            if (aRelevance !== bRelevance) {
+                return bRelevance - aRelevance;
+            }
+
+            // If same relevance, sort by rating
             if (b.rating !== a.rating) {
                 return b.rating - a.rating;
             }
+
+            // If same rating, sort by votes
             return b.votes - a.votes;
         });
         
@@ -405,13 +438,12 @@ Was blind but now I see"
     
     updateSaveButton() {
         if (!this.currentSong) return;
-        
+
         const isSaved = this.storage.isSongSaved(this.currentSong.title, this.currentSong.artist);
-        
+
         // Update floating save button (for compatibility)
         const floatingSaveBtn = document.getElementById('floating-save');
         if (floatingSaveBtn) {
-            floatingSaveBtn.textContent = '💾';
             floatingSaveBtn.title = isSaved ? 'Remove from saved' : 'Save song';
             if (isSaved) {
                 floatingSaveBtn.classList.add('active');
@@ -419,11 +451,10 @@ Was blind but now I see"
                 floatingSaveBtn.classList.remove('active');
             }
         }
-        
+
         // Update header save button
         const headerSaveBtn = document.getElementById('header-save');
         if (headerSaveBtn) {
-            headerSaveBtn.textContent = '💾';
             headerSaveBtn.title = isSaved ? 'Remove from saved' : 'Save song';
             if (isSaved) {
                 headerSaveBtn.classList.add('active');
@@ -562,7 +593,10 @@ Was blind but now I see"
         // Update theme toggle button
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
-            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+            // Moon icon for light theme (click to go dark), Sun icon for dark theme (click to go light)
+            themeToggle.innerHTML = theme === 'light'
+                ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>'
+                : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>';
             themeToggle.title = `Switch to ${theme === 'light' ? 'dark' : 'light'} mode`;
         }
     }

@@ -706,6 +706,557 @@ G |---4---
 D |---3---
 A |---2---
 E |---X---`
+    },
+
+    // Sharp/Flat Major Chords
+    'C#': {
+        frets: [4, 6, 6, 6, 4, -1],
+        diagram: `
+  C# Major (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---6---
+A |---4---
+E |---X---`
+    },
+    'Db': {
+        frets: [4, 6, 6, 6, 4, -1],
+        diagram: `
+  Db Major (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---6---
+A |---4---
+E |---X---`
+    },
+    'D#': {
+        frets: [3, 5, 5, 3, -1, -1],
+        diagram: `
+  D# Major (Barre)
+e |---3---
+B |---5---
+G |---5---
+D |---3---
+A |---X---
+E |---X---`
+    },
+    'Eb': {
+        frets: [3, 5, 5, 3, -1, -1],
+        diagram: `
+  Eb Major (Barre)
+e |---3---
+B |---5---
+G |---5---
+D |---3---
+A |---X---
+E |---X---`
+    },
+    'F#': {
+        frets: [2, 2, 3, 4, 4, 2],
+        diagram: `
+  F# Major (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---4---
+A |---4---
+E |---2---`
+    },
+    'Gb': {
+        frets: [2, 2, 3, 4, 4, 2],
+        diagram: `
+  Gb Major (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---4---
+A |---4---
+E |---2---`
+    },
+    'G#': {
+        frets: [4, 1, 1, 1, 3, 4],
+        diagram: `
+  G# Major (Barre)
+e |---4---
+B |---1---
+G |---1---
+D |---1---
+A |---3---
+E |---4---`
+    },
+    'Ab': {
+        frets: [4, 1, 1, 1, 3, 4],
+        diagram: `
+  Ab Major (Barre)
+e |---4---
+B |---1---
+G |---1---
+D |---1---
+A |---3---
+E |---4---`
+    },
+    'A#': {
+        frets: [1, 3, 3, 3, 1, -1],
+        diagram: `
+  A# Major (Barre)
+e |---1---
+B |---3---
+G |---3---
+D |---3---
+A |---1---
+E |---X---`
+    },
+    'Bb': {
+        frets: [1, 3, 3, 3, 1, -1],
+        diagram: `
+  Bb Major (Barre)
+e |---1---
+B |---3---
+G |---3---
+D |---3---
+A |---1---
+E |---X---`
+    },
+
+    // Sharp/Flat Minor Chords
+    'C#m': {
+        frets: [4, 5, 6, 6, 4, -1],
+        diagram: `
+  C# minor (Barre)
+e |---4---
+B |---5---
+G |---6---
+D |---6---
+A |---4---
+E |---X---`
+    },
+    'Dbm': {
+        frets: [4, 5, 6, 6, 4, -1],
+        diagram: `
+  Db minor (Barre)
+e |---4---
+B |---5---
+G |---6---
+D |---6---
+A |---4---
+E |---X---`
+    },
+    'D#m': {
+        frets: [3, 4, 5, 5, 3, -1],
+        diagram: `
+  D# minor (Barre)
+e |---3---
+B |---4---
+G |---5---
+D |---5---
+A |---3---
+E |---X---`
+    },
+    'Ebm': {
+        frets: [3, 4, 5, 5, 3, -1],
+        diagram: `
+  Eb minor (Barre)
+e |---3---
+B |---4---
+G |---5---
+D |---5---
+A |---3---
+E |---X---`
+    },
+    'F#m': {
+        frets: [2, 2, 2, 2, 4, 2],
+        diagram: `
+  F# minor (Barre)
+e |---2---
+B |---2---
+G |---2---
+D |---4---
+A |---4---
+E |---2---`
+    },
+    'Gbm': {
+        frets: [2, 2, 2, 2, 4, 2],
+        diagram: `
+  Gb minor (Barre)
+e |---2---
+B |---2---
+G |---2---
+D |---4---
+A |---4---
+E |---2---`
+    },
+    'G#m': {
+        frets: [4, 4, 4, 4, 6, 4],
+        diagram: `
+  G# minor (Barre)
+e |---4---
+B |---4---
+G |---4---
+D |---6---
+A |---6---
+E |---4---`
+    },
+    'Abm': {
+        frets: [4, 4, 4, 4, 6, 4],
+        diagram: `
+  Ab minor (Barre)
+e |---4---
+B |---4---
+G |---4---
+D |---6---
+A |---6---
+E |---4---`
+    },
+    'A#m': {
+        frets: [1, 1, 1, 3, 3, 1],
+        diagram: `
+  A# minor (Barre)
+e |---1---
+B |---1---
+G |---1---
+D |---3---
+A |---3---
+E |---1---`
+    },
+    'Bbm': {
+        frets: [1, 1, 1, 3, 3, 1],
+        diagram: `
+  Bb minor (Barre)
+e |---1---
+B |---1---
+G |---1---
+D |---3---
+A |---3---
+E |---1---`
+    },
+
+    // Sharp/Flat 7th Chords
+    'C#7': {
+        frets: [4, 6, 6, 4, 4, -1],
+        diagram: `
+  C#7 (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---4---
+A |---4---
+E |---X---`
+    },
+    'Db7': {
+        frets: [4, 6, 6, 4, 4, -1],
+        diagram: `
+  Db7 (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---4---
+A |---4---
+E |---X---`
+    },
+    'D#7': {
+        frets: [3, 5, 5, 3, 5, 3],
+        diagram: `
+  D#7 (Barre)
+e |---3---
+B |---5---
+G |---5---
+D |---3---
+A |---5---
+E |---3---`
+    },
+    'Eb7': {
+        frets: [3, 5, 5, 3, 5, 3],
+        diagram: `
+  Eb7 (Barre)
+e |---3---
+B |---5---
+G |---5---
+D |---3---
+A |---5---
+E |---3---`
+    },
+    'F#7': {
+        frets: [2, 2, 3, 2, 4, 2],
+        diagram: `
+  F#7 (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---2---
+A |---4---
+E |---2---`
+    },
+    'Gb7': {
+        frets: [2, 2, 3, 2, 4, 2],
+        diagram: `
+  Gb7 (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---2---
+A |---4---
+E |---2---`
+    },
+    'G#7': {
+        frets: [4, 4, 5, 4, 6, 4],
+        diagram: `
+  G#7 (Barre)
+e |---4---
+B |---4---
+G |---5---
+D |---4---
+A |---6---
+E |---4---`
+    },
+    'Ab7': {
+        frets: [4, 4, 5, 4, 6, 4],
+        diagram: `
+  Ab7 (Barre)
+e |---4---
+B |---4---
+G |---5---
+D |---4---
+A |---6---
+E |---4---`
+    },
+    'A#7': {
+        frets: [1, 3, 3, 1, 3, 1],
+        diagram: `
+  A#7 (Barre)
+e |---1---
+B |---3---
+G |---3---
+D |---1---
+A |---3---
+E |---1---`
+    },
+    'Bb7': {
+        frets: [1, 3, 3, 1, 3, 1],
+        diagram: `
+  Bb7 (Barre)
+e |---1---
+B |---3---
+G |---3---
+D |---1---
+A |---3---
+E |---1---`
+    },
+
+    // Sharp/Flat Major 7th Chords
+    'C#maj7': {
+        frets: [4, 6, 6, 5, 4, -1],
+        diagram: `
+  C#maj7 (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---5---
+A |---4---
+E |---X---`
+    },
+    'Dbmaj7': {
+        frets: [4, 6, 6, 5, 4, -1],
+        diagram: `
+  Dbmaj7 (Barre)
+e |---4---
+B |---6---
+G |---6---
+D |---5---
+A |---4---
+E |---X---`
+    },
+    'Ebmaj7': {
+        frets: [3, 5, 5, 4, 3, -1],
+        diagram: `
+  Ebmaj7 (Barre)
+e |---3---
+B |---5---
+G |---5---
+D |---4---
+A |---3---
+E |---X---`
+    },
+    'F#maj7': {
+        frets: [2, 2, 3, 3, 4, 2],
+        diagram: `
+  F#maj7 (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---3---
+A |---4---
+E |---2---`
+    },
+    'Gbmaj7': {
+        frets: [2, 2, 3, 3, 4, 2],
+        diagram: `
+  Gbmaj7 (Barre)
+e |---2---
+B |---2---
+G |---3---
+D |---3---
+A |---4---
+E |---2---`
+    },
+    'Abmaj7': {
+        frets: [4, 4, 5, 5, 6, 4],
+        diagram: `
+  Abmaj7 (Barre)
+e |---4---
+B |---4---
+G |---5---
+D |---5---
+A |---6---
+E |---4---`
+    },
+    'Bbmaj7': {
+        frets: [1, 3, 3, 2, 1, -1],
+        diagram: `
+  Bbmaj7 (Barre)
+e |---1---
+B |---3---
+G |---3---
+D |---2---
+A |---1---
+E |---X---`
+    },
+
+    // Sharp/Flat Minor 7th Chords
+    'C#m7': {
+        frets: [4, 5, 6, 4, 4, -1],
+        diagram: `
+  C#m7 (Barre)
+e |---4---
+B |---5---
+G |---6---
+D |---4---
+A |---4---
+E |---X---`
+    },
+    'Ebm7': {
+        frets: [3, 4, 5, 3, 3, -1],
+        diagram: `
+  Ebm7 (Barre)
+e |---3---
+B |---4---
+G |---5---
+D |---3---
+A |---3---
+E |---X---`
+    },
+    'F#m7': {
+        frets: [2, 2, 2, 2, 4, 2],
+        diagram: `
+  F#m7 (Barre)
+e |---2---
+B |---2---
+G |---2---
+D |---2---
+A |---4---
+E |---2---`
+    },
+    'Abm7': {
+        frets: [4, 4, 4, 4, 6, 4],
+        diagram: `
+  Abm7 (Barre)
+e |---4---
+B |---4---
+G |---4---
+D |---4---
+A |---6---
+E |---4---`
+    },
+    'Bbm7': {
+        frets: [1, 1, 1, 1, 3, 1],
+        diagram: `
+  Bbm7 (Barre)
+e |---1---
+B |---1---
+G |---1---
+D |---1---
+A |---3---
+E |---1---`
+    },
+
+    // Power Chords
+    'C5': {
+        frets: [-1, -1, -1, 3, 5, 3],
+        diagram: `
+  C5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---3---
+A |---5---
+E |---3---`
+    },
+    'D5': {
+        frets: [-1, -1, -1, 0, 2, 0],
+        diagram: `
+  D5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---0---
+A |---2---
+E |---0---`
+    },
+    'E5': {
+        frets: [-1, -1, -1, 2, 2, 0],
+        diagram: `
+  E5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---2---
+A |---2---
+E |---0---`
+    },
+    'F5': {
+        frets: [-1, -1, -1, 3, 3, 1],
+        diagram: `
+  F5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---3---
+A |---3---
+E |---1---`
+    },
+    'G5': {
+        frets: [-1, -1, -1, 0, 2, 3],
+        diagram: `
+  G5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---0---
+A |---2---
+E |---3---`
+    },
+    'A5': {
+        frets: [-1, -1, -1, 2, 2, 0],
+        diagram: `
+  A5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---2---
+A |---2---
+E |---0---`
+    },
+    'B5': {
+        frets: [-1, -1, -1, 4, 4, 2],
+        diagram: `
+  B5 (Power Chord)
+e |---X---
+B |---X---
+G |---X---
+D |---4---
+A |---4---
+E |---2---`
     }
 };
 
@@ -718,7 +1269,19 @@ const CHORD_ALTERNATIVES = {
     'G': ['Gmaj7', 'Gadd9', 'G7', 'Gsus4', 'Gsus2'],
     'A': ['Amaj7', 'Aadd9', 'A7', 'Asus4', 'Asus2'],
     'B': ['B7', 'Bmaj7', 'Badd9', 'Bsus4', 'Bsus2'],
-    
+
+    // Sharp/Flat Major chord alternatives
+    'C#': ['C#maj7', 'C#7', 'C#m'],
+    'Db': ['Dbmaj7', 'Db7', 'Dbm'],
+    'D#': ['D#7', 'D#m'],
+    'Eb': ['Ebmaj7', 'Eb7', 'Ebm'],
+    'F#': ['F#maj7', 'F#7', 'F#m'],
+    'Gb': ['Gbmaj7', 'Gb7', 'Gbm'],
+    'G#': ['G#7', 'G#m'],
+    'Ab': ['Abmaj7', 'Ab7', 'Abm'],
+    'A#': ['A#7', 'A#m'],
+    'Bb': ['Bbmaj7', 'Bb7', 'Bbm'],
+
     // Minor chord alternatives
     'Am': ['Am7', 'Asus2'],
     'Bm': ['Bm7', 'Bsus2'],
@@ -727,6 +1290,18 @@ const CHORD_ALTERNATIVES = {
     'Em': ['Em7', 'Esus2'],
     'Fm': ['Fm7', 'Fsus2'],
     'Gm': ['Gm7', 'Gsus2'],
+
+    // Sharp/Flat Minor chord alternatives
+    'C#m': ['C#m7', 'C#'],
+    'Dbm': ['C#m7', 'Db'],
+    'D#m': ['Ebm7', 'Eb'],
+    'Ebm': ['Ebm7', 'Eb'],
+    'F#m': ['F#m7', 'F#'],
+    'Gbm': ['F#m7', 'Gb'],
+    'G#m': ['Abm7', 'Ab'],
+    'Abm': ['Abm7', 'Ab'],
+    'A#m': ['Bbm7', 'Bb'],
+    'Bbm': ['Bbm7', 'Bb'],
     
     // 7th chord alternatives
     'C7': ['Cmaj7', 'C', 'Csus4'],
@@ -829,48 +1404,35 @@ function escapeHtml(text) {
 function createChordLyricLine(chordLine, lyricLine) {
     const chordPattern = /\b[A-G](?:[#♯]|b|♭)?(?:maj(?:7|9|11|13)?|min(?:7|9|11|13)?|m(?:7|9|11|13)?(?:b5)?|7(?:b5)?|sus[24]?|add[29]|dim7?|aug|°7?|\+7?|6|9|11|13|5)*(?:\/[A-G](?:[#♯]|b|♭)?)?\b/g;
     const chordMatches = [...chordLine.matchAll(chordPattern)];
-    
+
     if (chordMatches.length === 0) {
-        return escapeHtml(lyricLine);
+        return `<span class="lyric-segment">${escapeHtml(lyricLine)}</span>`;
     }
-    
-    let result = '<div class="chord-lyric-line">';
-    let lyricIndex = 0;
-    
-    for (let i = 0; i < chordMatches.length; i++) {
-        const match = chordMatches[i];
-        const chordPosition = match.index;
+
+    // Build the chord line with proper spacing
+    let chordLineHtml = '<div class="chord-line-display" style="margin-bottom: 0.25rem;">';
+    let lastPosition = 0;
+
+    chordMatches.forEach(match => {
         const chord = match[0];
-        
-        // Determine how much lyric text corresponds to this chord
-        let lyricSegmentLength;
-        if (i === chordMatches.length - 1) {
-            // Last chord, take rest of lyrics
-            lyricSegmentLength = lyricLine.length - lyricIndex;
-        } else {
-            // Calculate spacing based on chord positions
-            const nextChordPosition = chordMatches[i + 1].index;
-            const chordSpacing = nextChordPosition - chordPosition;
-            lyricSegmentLength = Math.max(chordSpacing, chord.length + 1);
+        const position = match.index;
+
+        // Add spacing before the chord to align it with lyrics
+        if (position > lastPosition) {
+            const spacer = '&nbsp;'.repeat(position - lastPosition);
+            chordLineHtml += `<span>${spacer}</span>`;
         }
-        
-        const lyricSegment = lyricLine.slice(lyricIndex, lyricIndex + lyricSegmentLength);
-        
-        result += `<span class="chord-lyric-pair">`;
-        result += `<span class="chord" data-chord="${escapeHtml(chord)}">${escapeHtml(chord)}</span>`;
-        result += `<span class="lyric-part">${escapeHtml(lyricSegment)}</span>`;
-        result += `</span>`;
-        
-        lyricIndex += lyricSegmentLength;
-    }
-    
-    // Add any remaining lyrics
-    if (lyricIndex < lyricLine.length) {
-        result += `<span class="lyric-part">${escapeHtml(lyricLine.slice(lyricIndex))}</span>`;
-    }
-    
-    result += '</div>';
-    return result;
+
+        chordLineHtml += `<span class="chord" data-chord="${escapeHtml(chord)}">${escapeHtml(chord)}</span>`;
+        lastPosition = position + chord.length;
+    });
+
+    chordLineHtml += '</div>';
+
+    // Add the lyric line below
+    const lyricLineHtml = `<div class="lyric-line-display"><span class="lyric-segment">${escapeHtml(lyricLine)}</span></div>`;
+
+    return chordLineHtml + lyricLineHtml;
 }
 
 function renderChordChart(parsedChart) {
