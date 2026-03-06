@@ -1353,8 +1353,21 @@ function parseChordChart(text) {
         }
         
         const chordPattern = /\b[A-G](?:[#♯]|b|♭)?(?:maj(?:7|9|11|13)?|min(?:7|9|11|13)?|m(?:7|9|11|13)?(?:b5)?|7(?:b5)?|sus[24]?|add[29]|dim7?|aug|°7?|\+7?|6|9|11|13|5)*(?:\/[A-G](?:[#♯]|b|♭)?)?\b/g;
-        const matches = [...line.matchAll(chordPattern)];
-        
+        const allMatches = [...line.matchAll(chordPattern)];
+
+        // Filter out false positives like the article "A" followed by lowercase words
+        const matches = allMatches.filter(match => {
+            const chord = match[0];
+            const position = match.index;
+
+            // If it's just the letter "A" and followed by a space and lowercase letter, it's likely an article
+            if (chord === 'A' && line[position + 1] === ' ' && line[position + 2] && line[position + 2].match(/[a-z]/)) {
+                return false;
+            }
+
+            return true;
+        });
+
         // Check if this is a chord line (has chords but minimal lyrics)
         const hasChords = matches.length > 0;
         const chordContent = matches.map(m => m[0]).join('');
@@ -1403,7 +1416,20 @@ function escapeHtml(text) {
 
 function createChordLyricLine(chordLine, lyricLine) {
     const chordPattern = /\b[A-G](?:[#♯]|b|♭)?(?:maj(?:7|9|11|13)?|min(?:7|9|11|13)?|m(?:7|9|11|13)?(?:b5)?|7(?:b5)?|sus[24]?|add[29]|dim7?|aug|°7?|\+7?|6|9|11|13|5)*(?:\/[A-G](?:[#♯]|b|♭)?)?\b/g;
-    const chordMatches = [...chordLine.matchAll(chordPattern)];
+    const allMatches = [...chordLine.matchAll(chordPattern)];
+
+    // Filter out false positives like the article "A" followed by lowercase words
+    const chordMatches = allMatches.filter(match => {
+        const chord = match[0];
+        const position = match.index;
+
+        // If it's just the letter "A" and followed by a space and lowercase letter, it's likely an article
+        if (chord === 'A' && chordLine[position + 1] === ' ' && chordLine[position + 2] && chordLine[position + 2].match(/[a-z]/)) {
+            return false;
+        }
+
+        return true;
+    });
 
     if (chordMatches.length === 0) {
         return `<span class="lyric-segment">${escapeHtml(lyricLine)}</span>`;
