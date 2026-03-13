@@ -30,13 +30,13 @@ function getNoteIndex(note, accidental = '') {
 function transposeNote(note, accidental, semitones) {
     const currentIndex = getNoteIndex(note, accidental);
     if (currentIndex === -1) return note + accidental;
-    
-    let newIndex = (currentIndex + semitones + 12) % 12;
-    
-    const originalNote = note + accidental;
-    const useFlats = FLAT_NOTES.includes(originalNote) || 
-                     (semitones < 0 && ['F', 'C', 'G', 'D', 'A'].includes(note));
-    
+
+    // Use double-modulo to correctly handle any positive or negative integer
+    const newIndex = ((currentIndex + semitones) % 12 + 12) % 12;
+
+    // Use flats when transposing down, sharps when transposing up (or no change)
+    const useFlats = semitones < 0;
+
     return useFlats ? FLAT_NOTES[newIndex] : NOTES[newIndex];
 }
 

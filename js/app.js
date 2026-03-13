@@ -329,15 +329,18 @@ Was blind but now I see"
     loadSong(songData) {
         this.currentSong = songData;
         this.currentTransposition = 0;
-        
+
         // Extract chords to detect key
         const chordMatches = songData.content.match(/\b[A-G](?:#|b)?(?:maj|min|m|7|sus|add|dim|aug)?\d*\b/g);
         this.originalKey = chordMatches ? detectKey(chordMatches) : 'C';
-        
+
         // Parse and render the chord chart
         const parsedChart = parseChordChart(songData.content);
         const renderedChart = renderChordChart(parsedChart);
-        
+
+        // Store original rendered HTML as baseline for transposition
+        this.originalChordChart = renderedChart;
+
         // Update UI
         document.getElementById('song-title').textContent = songData.title;
         document.getElementById('song-artist').textContent = songData.artist;
@@ -406,15 +409,16 @@ Was blind but now I see"
     
     applyTransposition() {
         if (!this.currentSong) return;
-        
+
         const chartElement = document.getElementById('chord-chart');
-        const transposedChart = transposeChordChart(chartElement.innerHTML, 1);
+        // Always re-apply from the original chart to avoid enharmonic drift
+        const transposedChart = transposeChordChart(this.originalChordChart, this.currentTransposition);
         chartElement.innerHTML = transposedChart;
-        
+
         // Update key display
         const newKey = getTransposedKey(this.originalKey, this.currentTransposition);
         document.getElementById('key-display').textContent = newKey;
-        
+
         // Re-bind chord events
         this.bindChordEvents();
     }
